@@ -1,6 +1,13 @@
+import LoginSignup from "./Components/LoginSignup/LoginSignup.jsx"
+import "./Components/LoginSignup/LoginSignup.css"
+
 
 function App() {
-  return <h1>ODYSSEY</h1>
-}
+  return (
+    <div>
+        <LoginSignup/>
+    </div>
 
+  )
+  }
 export default App

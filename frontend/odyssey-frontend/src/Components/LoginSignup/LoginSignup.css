@@ -1,0 +1,111 @@
+body {
+  background-image: url('../Assets/odyssey-logo.png'); /* Path to your background image */
+
+  background-repeat: no-repeat;
+}
+
+.container{
+    opacity: 90%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 32%;
+    margin-top: 73px;
+    width: 600px;
+    background: #071d2f;
+    padding-bottom: 10px;
+    border-radius:50px;
+}
+
+.header{
+    margin-left: 35%;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top:30px;
+}
+
+.text{
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.underline{
+    width: 165px;
+    height: 6px;
+    background: #fff;
+    border-radius: 9px;
+    margin-top: 4px;
+}
+
+.inputs{
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 480px;
+    height: 80px;
+    background: #134e7c;
+    border-radius: 6px;
+}
+
+.input img{
+    margin: 0px 30px;
+}
+
+.input input::placeholder{
+    color:#fff;
+
+}
+
+.input input{
+    padding:20px;
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 19px;
+}
+
+.forgot-password{
+  padding-left: 62px;
+  margin-top: 27px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.forgot-password span{
+    color: #fff;
+    cursor: pointer;
+}
+
+.submit-container{
+    display:flex;
+    gap: 30px;
+    margin: 60px auto;
+}
+
+.submit{
+    opacity:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 59px;
+    color: #fff;
+    background:#ff5757;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+

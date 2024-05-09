@@ -1,5 +1,5 @@
 body {
-  background-image: url('../Assets/odyssey-logo.png'); /* Path to your background image */
+  background-image: url('../Assets/odyssey-logo.png');
   background-repeat: no-repeat;
 }
 
@@ -76,7 +76,7 @@ body {
 }
 
 .forgot-password{
-  padding-left: 62px;
+  padding-left: 20px;
   margin-top: 27px;
   color: #797979;
   font-size: 18px;

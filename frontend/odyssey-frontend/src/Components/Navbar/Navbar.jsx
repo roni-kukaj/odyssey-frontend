@@ -1,35 +1,37 @@
 import React from 'react';
-import { Box, Flex, Spacer, Link, Heading, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { Box, Flex, Spacer, Link, Heading, Menu, MenuButton, MenuList, MenuItem, Icon } from '@chakra-ui/react';
+import { FaAngleDown } from 'react-icons/fa'; // Import the desired icon
+import logo from "../Assets/logo.png";
 
 const Navbar = () => {
     return (
-        <Flex p="4" bg="#0E4975" color="white" fontSize="lg">
-            <Box p="2">
-                <img src="../Assets/odyssey-logo.png" alt="Logo" style={{ height: '50px' }} />
+        <Flex p="4" bg="#0E4975" color="white" fontSize={{ base: 'sm', md: 'lg', lg: 'xl' }} flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
+            <Box p="2" pl="16">
+              <Link>  <img src={logo} alt="Logo" style={{ height: '50px' }} /></Link>
             </Box>
             <Spacer />
-            <Box mr="400px" mt="2">
-                <Link mr="8" fontSize="lg">Home</Link>
-                <Link mr="8" fontSize="lg">Contact Us</Link>
-                <Link mr="8" fontSize="lg">Destination</Link>
-                <Link mr="8" fontSize="lg">About Us</Link>
+            <Box mr={{ base: '0', md: '400px' }} mt={{ base: '4', md: '0' }} display={{ base: 'none', md: 'block' }}>
+                <Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>Home</Link>
+                <Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>Contact Us</Link>
+                <Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>Destination</Link>
+                <Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>About Us</Link>
                 <Menu>
-                    <MenuButton as={Link} mr="4" fontSize="lg">
-                        Dropdown
+                    <MenuButton as={Link} mr="4" fontSize="lg" fontWeight="bold" _hover={{ textDecoration: 'none', opacity:'50%' }}>
+                        <Icon as={FaAngleDown} />
                     </MenuButton>
                     <MenuList bg="#0E4975" color="white">
-                        <MenuItem bg="#0E4975" color="white" fontSize="lg">Bookmarks</MenuItem>
+                        <MenuItem fontSize="lg" bg="#0E4975" _hover={{ textDecoration: 'none', opacity:'50%' }}>Bookmarks</MenuItem>
                         <Box h="1px" bg="white" />
-                        <MenuItem bg="#0E4975" color="white" fontSize="lg">Local Cuisine</MenuItem>
+                        <MenuItem fontSize="lg" bg="#0E4975" _hover={{ textDecoration: 'none', opacity:'50%' }}>Local Cuisine</MenuItem>
                         <Box h="1px" bg="white" />
-                        <MenuItem bg="#0E4975" color="white" fontSize="lg">Posts</MenuItem>
+                        <MenuItem fontSize="lg" bg="#0E4975" _hover={{ textDecoration: 'none', opacity:'50%' }}>Posts</MenuItem>
                         <Box h="1px" bg="white" />
-                        <MenuItem bg="#0E4975" color="white" fontSize="lg">Recommendations</MenuItem>
+                        <MenuItem fontSize="lg" bg="#0E4975" _hover={{ textDecoration: 'none', opacity:'50%' }}>Recommendations</MenuItem>
                         <Box h="1px" bg="white" />
                     </MenuList>
                 </Menu>
             </Box>
-                <Link mr="6" mt="2" fontSize="lg">Log In</Link>
+            <Link mr={{ base: '0', md: '6' }} mt={{ base: '2', md: '0' }} pr="10" _hover={{ textDecoration: 'none', opacity:'50%' }}>Log In</Link>
         </Flex>
     );
 };

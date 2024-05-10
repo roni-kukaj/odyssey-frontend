@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Flex, Link, Text, Icon } from '@chakra-ui/react';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import logo from "../Assets/logo2.png";
 
 const Footer = () => {
     return (
@@ -8,40 +9,40 @@ const Footer = () => {
                 <Flex justify="space-between" align="center">
                     <Box ml="150px">
                         <Text fontWeight="bold" mb="2" fontSize="lg">Odyssey</Text>
-                        <Link>About Us</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>About Us</Link>
                         <br />
-                        <Link>Hotels</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Hotels</Link>
                         <br />
-                        <Link>Trips</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Trips</Link>
                         <br />
-                        <Link>Activities</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Activities</Link>
                         <br />
-                        <Link>News</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>News</Link>
                     </Box>
 
-                       <img src="../Assets/odyssey-logo.png" alt="Logo" style={{ height: '100px' }} />
+                       <img src={logo} alt="Logo" style={{ width:'300px', height: '220px' }}/>
 
                     <Box>
                         <Text fontWeight="bold" mb="2" fontSize="lg">Odyssey</Text>
-                        <Link>About Us</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Privacy</Link>
                         <br />
-                        <Link>Hotels</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Terms</Link>
                         <br />
-                        <Link>Trips</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>info@odyssey.com</Link>
                         <br />
-                        <Link>Activities</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>?</Link>
                         <br />
-                        <Link>News</Link>
+                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>?</Link>
                     </Box>
 
-                    <Box>
+                    <Box pr="20">
                         <Text fontWeight="bold" fontSize="lg" mb="2" align="center">Follow Us</Text>
 
-                            <Link mr="4" mt="2"><Icon as={FaFacebook} boxSize={8} /></Link>
+                            <Link mr="4" mt="2" _hover={{ textDecoration: 'none', opacity:'50%' }}><Icon as={FaFacebook} boxSize={8} /></Link>
                             <br />
-                            <Link mr="4" mt="5"><Icon as={FaTwitter} boxSize={8} /></Link>
+                            <Link mr="4" mt="5" _hover={{ textDecoration: 'none', opacity:'50%' }}><Icon as={FaTwitter} boxSize={8} /></Link>
                             <br />
-                            <Link><Icon as={FaInstagram} boxSize={8} /></Link>
+                            <Link _hover={{ textDecoration: 'none', opacity:'50%' }}><Icon as={FaInstagram} boxSize={8} /></Link>
                     </Box>
                 </Flex>
                  <br /> <br />

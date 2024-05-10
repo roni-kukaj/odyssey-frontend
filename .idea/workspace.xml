@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f3c464b0-f9b0-4002-9de7-13e60870e705" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/LoginSignup/LoginSignup.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/LoginSignup/LoginSignup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/LoginSignup/LoginSignup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/LoginSignup/LoginSignup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Assets/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Assets/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Footer/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Homepage/Homepage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Homepage/Homepage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/odyssey-frontend/src/Components/Navbar/Navbar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +21,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2fnC9FQfbuftTmvIUk5uEbGFtJ3" />
   <component name="ProjectViewState">

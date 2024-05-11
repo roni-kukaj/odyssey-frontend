@@ -3,13 +3,16 @@ import LoginSignup from "./Components/LoginSignup/LoginSignup.jsx"
 import Homepage from "./Components/Homepage/Homepage.jsx"
 import Aboutus from "./Components/AboutUs/Aboutus.jsx"
 import ContactUs from "./Components/ContactUs/ContactUs.jsx"
+import News from "./Components/News/News.jsx"
 
 function App() {
   return (
     <div>
         {/* <LoginSignup/> */}
         {/* <Homepage /> */}
-            {<ContactUs />}
+{/*         <Aboutus /> */}
+{/*         {<ContactUs />} */}
+        <News />
     </div>
 
   )

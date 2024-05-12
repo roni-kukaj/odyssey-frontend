@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Flex, Link, Text, Icon } from '@chakra-ui/react';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 import logo from "../Assets/logo2.png";
+import { Link as RouterLink } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -9,30 +10,30 @@ const Footer = () => {
                 <Flex justify="space-between" align="center">
                     <Box ml="150px">
                         <Text fontWeight="bold" mb="2" fontSize="lg">Odyssey</Text>
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>About Us</Link>
+                        <RouterLink to="aboutus"><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>About Us</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Hotels</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Hotels</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Trips</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Trips</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Activities</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Activities</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>News</Link>
+                        <RouterLink to="/news"><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>News</Link></RouterLink>
                     </Box>
 
                        <img src={logo} alt="Logo" style={{ width:'300px', height: '220px' }}/>
 
                     <Box>
                         <Text fontWeight="bold" mb="2" fontSize="lg">Odyssey</Text>
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Privacy</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Privacy</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Terms</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>Terms</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>info@odyssey.com</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>info@odyssey.com</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>?</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>?</Link></RouterLink>
                         <br />
-                        <Link _hover={{ textDecoration: 'none', opacity:'50%' }}>?</Link>
+                        <RouterLink><Link _hover={{ textDecoration: 'none', opacity:'50%' }}>?</Link></RouterLink>
                     </Box>
 
                     <Box pr="20">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Link, Text, Icon } from '@chakra-ui/react';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
-import logo from "../Assets/logo2.png";
+import logo from "../../assets/odyssey-logo.png";
 import { Link as RouterLink } from 'react-router-dom';
 
 const Footer = () => {

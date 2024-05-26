@@ -5,6 +5,9 @@ import AboutUs from './components/about/AboutUs.jsx';
 import Contact from './components/contact/Contact.jsx';
 import News from './components/news/News.jsx';
 import Authentication from './components/authentication/Authentication.jsx';
+import PlanDashboard from './components/plans/PlanDashboard.jsx'
+import Locations from './components/locations/Locations.jsx';
+import Flights from './components/flights/Flights.jsx'
 import LocalCuisine from './components/localcuisine/LocalCuisine.jsx';
 import Posts from './components/posts/Posts.jsx';
 
@@ -22,6 +25,7 @@ function App() {
                         <Route path="/posts" element={<Posts />} />
                         <Route path="/plans" element={<PlanDashboard/>}/>
                         <Route path="/locations" element={<Locations />} />
+                        <Route path="/flights" element={<Flights />} />
                     </Routes>
                 </div>
             </Router>

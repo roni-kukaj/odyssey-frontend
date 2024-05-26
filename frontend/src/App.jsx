@@ -6,6 +6,7 @@ import Contact from './components/contact/Contact.jsx';
 import News from './components/news/News.jsx';
 import Authentication from './components/authentication/Authentication.jsx';
 import PlanDashboard from './components/plans/PlanDashboard.jsx'
+import Locations from './components/locations/Locations.jsx';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                         <Route path="/authenticate" element={<Authentication />} />
                         <Route path="/news" element={<News />} />
                         <Route path="/plans" element={<PlanDashboard/>}/>
+                        <Route path="/locations" element={<Locations />} />
                     </Routes>
                 </div>
             </Router>

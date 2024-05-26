@@ -6,6 +6,7 @@ import AboutUs from './components/about/AboutUs.jsx';
 import Contact from './components/contact/Contact.jsx';
 import News from './components/news/News.jsx';
 import Authentication from './components/authentication/Authentication.jsx';
+import Hotels from './components/hotels/Hotels.jsx';
 import PlanDashboard from './components/plans/PlanDashboard.jsx'
 import Locations from './components/locations/Locations.jsx';
 import Flights from './components/flights/Flights.jsx'
@@ -23,6 +24,7 @@ function App() {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/authenticate" element={<Authentication />} />
                         <Route path="/news" element={<News />} />
+                        <Route path="/hotels" element={<Hotels />} />
                         <Route path="/localcuisine" element={<LocalCuisine />} />
                         <Route path="/posts" element={<Posts />} />
                         <Route path="/plans" element={<PlanDashboard/>}/>

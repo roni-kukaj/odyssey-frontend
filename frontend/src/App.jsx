@@ -18,6 +18,8 @@ function App() {
                         <Route path="/authenticate" element={<Authentication />} />
                         <Route path="/news" element={<News />} />
                         <Route path="/posts" element={<Posts />} />
+                        <Route path="/plans" element={<PlanDashboard/>}/>
+                        <Route path="/locations" element={<Locations />} />
                     </Routes>
                 </div>
             </Router>

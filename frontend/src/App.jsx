@@ -8,6 +8,8 @@ import Authentication from './components/authentication/Authentication.jsx';
 import PlanDashboard from './components/plans/PlanDashboard.jsx'
 import Locations from './components/locations/Locations.jsx';
 import Flights from './components/flights/Flights.jsx'
+import LocalCuisine from './components/localcuisine/LocalCuisine.jsx';
+import Posts from './components/posts/Posts.jsx';
 
 function App() {
     return (
@@ -19,6 +21,8 @@ function App() {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/authenticate" element={<Authentication />} />
                         <Route path="/news" element={<News />} />
+                        <Route path="/localcuisine" element={<LocalCuisine />} />
+                        <Route path="/posts" element={<Posts />} />
                         <Route path="/plans" element={<PlanDashboard/>}/>
                         <Route path="/locations" element={<Locations />} />
                         <Route path="/flights" element={<Flights />} />

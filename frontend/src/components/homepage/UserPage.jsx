@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../shared/Navbar.jsx';
+import UserNavbar from '../shared/UserNavbar.jsx';
 import Footer from '../shared/Footer.jsx';
 import { Box, Grid, Text, Button } from '@chakra-ui/react';
 import logo from "../../assets/odyssey-logo.png";
@@ -11,10 +11,10 @@ import flights from "../../assets/flights.jpeg";
 import news from "../../assets/news.jpeg";
 import BoxWithImageAndButton from '../shared/BoxWithImageAndButton.jsx';
 
-function Homepage() {
+function UserPage() {
     return (
       <div>
-        <Navbar />
+        <UserNavbar />
 
             <Box p="4" px={{ base: '4', md: '90px' }} mt="3">
                 <Grid templateColumns="1fr 1fr" gap="4" alignItems="center">
@@ -47,4 +47,5 @@ function Homepage() {
       </div>
     );
   }
-  export default Homepage;
+
+  export default UserPage;

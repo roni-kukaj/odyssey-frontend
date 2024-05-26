@@ -14,7 +14,7 @@ const Navbar = () => {
             <Box mr={{ base: '0', md: '400px' }} mt={{ base: '4', md: '0' }} display={{ base: 'none', md: 'block' }}>
                 <RouterLink to="/"><Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>Home</Link></RouterLink>
                 <RouterLink to="/contact"><Link  mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>Contact Us</Link></RouterLink>
-                <RouterLink ><Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>Destination</Link></RouterLink>
+                <RouterLink to="/locations"><Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>Destination</Link></RouterLink>
                 <RouterLink to="/about-us"><Link mr="8" _hover={{ textDecoration: 'none', opacity:'50%' }}>About Us</Link></RouterLink>
                 <Menu>
                     <MenuButton as={Link} mr="4" fontSize="lg" fontWeight="bold" _hover={{ textDecoration: 'none', opacity:'50%' }}>

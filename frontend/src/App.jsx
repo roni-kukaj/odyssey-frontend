@@ -7,6 +7,7 @@ import News from './components/news/News.jsx';
 import Authentication from './components/authentication/Authentication.jsx';
 import PlanDashboard from './components/plans/PlanDashboard.jsx'
 import Locations from './components/locations/Locations.jsx';
+import Flights from './components/flights/Flights.jsx'
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                         <Route path="/news" element={<News />} />
                         <Route path="/plans" element={<PlanDashboard/>}/>
                         <Route path="/locations" element={<Locations />} />
+                        <Route path="/flights" element={<Flights />} />
                     </Routes>
                 </div>
             </Router>

@@ -5,6 +5,7 @@ import AboutUs from './components/about/AboutUs.jsx';
 import Contact from './components/contact/Contact.jsx';
 import News from './components/news/News.jsx';
 import Authentication from './components/authentication/Authentication.jsx';
+import Posts from './components/posts/Posts.jsx';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/authenticate" element={<Authentication />} />
                         <Route path="/news" element={<News />} />
+                        <Route path="/posts" element={<Posts />} />
                     </Routes>
                 </div>
             </Router>

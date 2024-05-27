@@ -12,6 +12,7 @@ import Locations from './components/locations/Locations.jsx';
 import Flights from './components/flights/Flights.jsx'
 import LocalCuisine from './components/localcuisine/LocalCuisine.jsx';
 import Posts from './components/posts/Posts.jsx';
+import Events from './components/events/Events.jsx';
 import Reviews from './components/reviews/Reviews.jsx';
 import Activities from './components/activities/Activities.jsx'
 
@@ -32,6 +33,7 @@ function App() {
                         <Route path="/plans" element={<PlanDashboard/>}/>
                         <Route path="/locations" element={<Locations />} />
                         <Route path="/flights" element={<Flights />} />
+                        <Route path="/events" element={<Events />} />
                         <Route path="/reviews" element={<Reviews />} />
                         <Route path="/activities" element={<Activities />} />
                     </Routes>

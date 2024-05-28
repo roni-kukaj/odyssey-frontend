@@ -14,7 +14,8 @@ import LocalCuisine from './components/localcuisine/LocalCuisine.jsx';
 import Posts from './components/posts/Posts.jsx';
 import Events from './components/events/Events.jsx';
 import Reviews from './components/reviews/Reviews.jsx';
-import Activities from './components/activities/Activities.jsx'
+import Activities from './components/activities/Activities.jsx';
+import Trips from './components/trips/Trips.jsx'
 
 function App() {
     return (
@@ -36,6 +37,8 @@ function App() {
                         <Route path="/events" element={<Events />} />
                         <Route path="/reviews" element={<Reviews />} />
                         <Route path="/activities" element={<Activities />} />
+                        <Route path="/trips" element={<Trips />} />
+
                     </Routes>
                 </div>
             </Router>

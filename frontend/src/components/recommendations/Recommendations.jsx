@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
     Box,
     Heading,
@@ -12,66 +12,69 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../shared/Navbar.jsx';
 import Footer from '../shared/Footer.jsx';
-import {getLocations, getReviews, registerReview} from "../../services/client.js";
-import ReviewCard from "./ReviewCard.jsx";
+import {
+    getActivities,
+    getRecommendations,
+    registerRecommendation,
+} from "../../services/client.js";
 import {FaPlus} from "react-icons/fa";
 import {Form, Formik} from "formik";
-import {reviewRegistrationFormValidation} from "../../services/validation.js";
-import {SelectInput, TextAreaInput, TextInput} from "../shared/FormComponents.jsx";
+import {recommendationRegistrationFormValidation} from "../../services/validation.js";
+import {SelectInput, TextAreaInput} from "../shared/FormComponents.jsx";
 import {useAuth} from "../context/AuthContext.jsx";
 import {errorNotification, successNotification} from "../../services/notification.js";
+import RecommendationCard from "./RecommendationCard.jsx";
 
-const Reviews = () => {
+const Recommendations = () => {
 
-    const [reviews, setReviews] = useState([]);
-    const [locations, setLocations] = useState([]);
+    const [recommendations, setRecommendations] = useState([]);
+    const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(false);
     const {user, isUserAuthenticated} = useAuth();
     const {isOpen, onOpen, onClose} = useDisclosure();
 
     useEffect(() => {
-        fetchReviews();
+        fetchRecommendations();
     }, [user]);
 
-    const fetchReviews = () => {
+    const fetchRecommendations = () => {
         setLoading(true);
-        getReviews().then(res => {
-            setReviews(res.data);
-        }).then(() => fetchLocations())
-            .catch(err => {
+        getRecommendations().then(res => {
+            setRecommendations(res.data);
+        })
+        .catch(err => {
             console.log(err);
         }).finally(setLoading(false));
     }
 
-    const fetchLocations = () => {
+    const fetchActivities = () => {
         setLoading(true);
-        getLocations().then(res => {
-            const allLocations = res.data;
-            const userReviews = reviews.filter(review => review.userDto.id === user.id);
-            const reviewedLocationIds = new Set(userReviews.map(review => review.location.id));
-            const unReviewedLocations = allLocations.filter(location => !reviewedLocationIds.has(location.id));
-            setLocations(unReviewedLocations);
+        getActivities().then(res => {
+            const allActivities = res.data;
+            const userRecommendations = recommendations.filter(rec => rec.userDto.id === user.id);
+            const reviewedActivityIds = new Set(userRecommendations.map(rec => rec.activity.id));
+            const unReviewedActivities = allActivities.filter(activity => !reviewedActivityIds.has(activity.id));
+            setActivities(unReviewedActivities);
         }).catch(err => {
             console.log(err);
         }).finally(setLoading(false));
     }
 
-    const ReviewRegistrationForm = () => (
+    const RecommendationRegistrationForm = () => (
         <Formik
             validateOnMount={true}
-            validationSchema={reviewRegistrationFormValidation}
-            initialValues={{description: null, rating: null, locationId: null}}
+            validationSchema={recommendationRegistrationFormValidation}
+            initialValues={{description: null, activityId: null}}
             onSubmit={(values, {setSubmitting}) => {
                 setSubmitting(true);
                 const data = {
                     description: values.description,
-                    rating: values.rating,
                     userId: user.id,
-                    locationId: values.locationId
+                    activityId: values.activityId
                 }
-                registerReview(data).then(res => {
-                    successNotification("Success", "Review was successfully added!");
-                    fetchReviews();
+                registerRecommendation(data).then(res => {
+                    successNotification("Success", "Recommendation was successfully added!");
+                    fetchRecommendations();
                     onClose();
                 }).catch(err => {
                     errorNotification(
@@ -87,15 +90,14 @@ const Reviews = () => {
                 <Form>
                     <Stack spacing={5}>
                         <TextAreaInput label={"Description"} name={"description"} type={"textarea"} placeholder={"Describe here..."} />
-                        <TextInput label={"Rating"} name={"rating"} type={"number"} placeholder={"0.0"} />
-                        <SelectInput label={"Location"} name={"locationId"}>
-                            <option value="">Select Location</option>
-                            { locations.map(location => (
+                        <SelectInput label={"Activity"} name={"activityId"}>
+                            <option value="">Select Activity</option>
+                            { activities.map(activity => (
                                 <option
-                                    key={location.id}
-                                    value={`${location.id}`}
+                                    key={activity.id}
+                                    value={`${activity.id}`}
                                 >
-                                    {location.city}, {location.country}
+                                    {activity.name}
                                 </option>
                             )) }
                         </SelectInput>
@@ -111,9 +113,11 @@ const Reviews = () => {
                                     transform: 'translateY(-2px)',
                                     bgGradient: 'linear(to-bl, #0E4975, #010101)'
                                 }}
-                                type={'submit'}
                                 disabled={!isValid || isSubmitting}
-                            >Upload</Button>
+                                type={'submit'}
+                            >
+                                Upload
+                            </Button>
                         </HStack>
                     </Stack>
                 </Form>
@@ -121,14 +125,14 @@ const Reviews = () => {
         </Formik>
     )
 
-    const ReviewRegistrationModal = () => (
+    const RecommendationRegistrationModal = () => (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Upload a Review</ModalHeader>
+                <ModalHeader>Upload a Recommendation</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <ReviewRegistrationForm />
+                    <RecommendationRegistrationForm />
                 </ModalBody>
 
             </ModalContent>
@@ -142,7 +146,7 @@ const Reviews = () => {
     return (
         <Box minH={'100vh'} display="flex" flexDirection="column">
             <Navbar />
-            <Center my={5} flex={1}><Heading>What our users have to say?</Heading></Center>
+            <Center my={5} flex={1}><Heading>Recommendations</Heading></Center>
             <Center>
                 <Button
                     bgGradient='linear(to-bl, #010101, #0E4975)'
@@ -153,24 +157,27 @@ const Reviews = () => {
                         transform: 'translateY(-2px)',
                         bgGradient: 'linear(to-bl, #0E4975, #010101)'
                     }}
-                    onClick={onOpen}
+                    onClick={() => {
+                        fetchActivities();
+                        onOpen();
+                    }}
                 >
-                    New Review
+                    New Recommendation
                 </Button>
             </Center>
             <SimpleGrid columns={{sm:1, md:2, lg:3, xl:4}} alignContent={'center'} mx={10}>
-                {reviews.map(review => (
-                    <ReviewCard
-                        key={review.id}
-                        review={review}
-                        fetchReviews={fetchReviews}
+                {recommendations.map(recommendation => (
+                    <RecommendationCard
+                        key={recommendation.id}
+                        recommendation={recommendation}
+                        fetchRecommendations={fetchRecommendations}
                     />
                 ))}
             </SimpleGrid>
             <Footer />
-            <ReviewRegistrationModal />
+            <RecommendationRegistrationModal />
         </Box>
     );
 };
 
-export default Reviews;
+export default Recommendations;

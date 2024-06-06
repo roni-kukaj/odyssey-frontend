@@ -1,71 +1,45 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import Navbar from '../shared/Navbar.jsx';
 import Footer from '../shared/Footer.jsx';
-import { Box, Grid, Text, Button } from '@chakra-ui/react';
-import logo from "../../assets/logo.png";
-import peja from "../../assets/peja.jpeg";
-import prishtina from "../../assets/prishtina.jpg";
-import prizreni from "../../assets/prizreni.jpg";
-import gjakova from "../../assets/gjakova.jpg";
-
-import BoxWithImageAndButton from '../shared/BoxWithImageAndButton.jsx';
+import {Box, Center, Heading, SimpleGrid, Spinner} from '@chakra-ui/react';
+import { getLocations } from "../../services/client.js";
+import LocationCard from "./LocationCard.jsx";
 
 function Locations() {
-  return (
-    <div>
-        <Navbar />
-            <Grid placeItems="center" minHeight="calc(100vh - 200px)" px="30px">
-                <br/>
-                <Box width="100%" textAlign="center" my="4" bg="#0E4975">
-                    <Text fontSize="7xl" fontWeight="bold" style={{ color: 'white' }} >Kosova</Text>
-                </Box>
-                 <Grid templateColumns="1fr 1fr" gap="4" mt="4">
-                    <Grid templateColumns="1fr 1fr" gap="4">
-                        <BoxWithImageAndButton image={prishtina} title={'Prishtina'} buttonText={'Favorite'} />
-                        <BoxWithImageAndButton image={peja} title={'Peja'} buttonText={'Favorite'} />
-                    </Grid>
-                    <Grid templateColumns="1fr 1fr" gap="4">
-                        <BoxWithImageAndButton image={[prizreni]} title={'Prizreni'} buttonText={'Favorite'} />
-                        <BoxWithImageAndButton image={gjakova} title={'Gjakova'} buttonText={'Favorite'} />
-                    </Grid>
-                </Grid>
 
-                <br/>
-                <Box width="100%" textAlign="center" my="4" bg="#0E4975">
-                    <Text fontSize="7xl" fontWeight="bold" style={{ color: 'white' }} >Italy</Text>
-                </Box>
+    const [locations, setLocations] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-                <Grid templateColumns="1fr 1fr" gap="4" mt="4">
-                    <Grid templateColumns="1fr 1fr" gap="4">
-                        <BoxWithImageAndButton image={prishtina} title={'Prishtina'} buttonText={'Favorite'} />
-                        <BoxWithImageAndButton image={peja} title={'Peja'} buttonText={'Favorite'} />
-                    </Grid>
-                    <Grid templateColumns="1fr 1fr" gap="4">
-                        <BoxWithImageAndButton image={[prizreni]} title={'Prizreni'} buttonText={'Favorite'} />
-                        <BoxWithImageAndButton image={gjakova} title={'Gjakova'} buttonText={'Favorite'} />
-                    </Grid>
-                </Grid>
+    useEffect(() => {
+        fetchLocations()
+        }, []
+    );
 
-                <br/>
-                <Box width="100%" textAlign="center" my="4" bg="#0E4975">
-                    <Text fontSize="7xl" fontWeight="bold" style={{ color: 'white' }} >France</Text>
-                </Box>
+    const fetchLocations = () => {
+        setLoading(true);
+        getLocations().then(res => {
+            setLocations(res.data);
+        }).catch(err => {
+            console.log(err);
+        }).finally(setLoading(false));
+    }
 
-                <Grid templateColumns="1fr 1fr" gap="4" mt="4">
-                    <Grid templateColumns="1fr 1fr" gap="4">
-                        <BoxWithImageAndButton image={prishtina} title={'Prishtina'} buttonText={'Favorite'} />
-                        <BoxWithImageAndButton image={peja} title={'Peja'} buttonText={'Favorite'} />
-                    </Grid>
-                    <Grid templateColumns="1fr 1fr" gap="4">
-                        <BoxWithImageAndButton image={[prizreni]} title={'Prizreni'} buttonText={'Favorite'} />
-                        <BoxWithImageAndButton image={gjakova} title={'Gjakova'} buttonText={'Favorite'} />
-                    </Grid>
-                </Grid>
+    if (loading) {
+        return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+    }
 
-            </Grid>
-        <Footer />
-    </div>
-  );
+    return (
+        <Box minH={'100vh'} w={'100%'} display="flex" flexDirection="column">
+            <Navbar />
+                <Center my={5} flex={1}><Heading>Visit out best locations</Heading></Center>
+                    <SimpleGrid columns={{sm:1, md:2, lg:3, xl:4}} alignContent={'center'} mx={10}>
+                        {locations.map(location => (
+                            <LocationCard key={location.id} location={location} fetchLocations={fetchLocations} />
+                        ))}
+                    </SimpleGrid>
+            <Footer />
+        </Box>
+    );
 }
 
 export default Locations;

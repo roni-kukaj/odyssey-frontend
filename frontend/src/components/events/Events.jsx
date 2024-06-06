@@ -1,100 +1,45 @@
-import React from 'react';
-
+import {useEffect, useState} from 'react';
 import Navbar from '../shared/Navbar.jsx';
 import Footer from '../shared/Footer.jsx';
-import { Box, Grid, Text, Button } from '@chakra-ui/react';
-import logo from "../../assets/logo.png";
-import aboutUsImage from "../../assets/events.jpeg";
-import events from "../../assets/events.jpeg";
-import BoxWithImage from '../shared/BoxWithImage.jsx';
+import {Box, Spinner, Center, Heading, SimpleGrid} from '@chakra-ui/react';
+import {getEvents} from "../../services/client.js";
+import EventCard from "./EventCard.jsx";
 
-function Events() {
-  return (
-    <div>
-        <Navbar />
-           <Grid placeItems="center" minHeight="calc(100vh - 200px)" px="30px">
-                   <br/>
-                   <Box width="100%" textAlign="center" my="4" bg="#0E4975">
-                       <Text fontSize="7xl" fontWeight="bold" style={{ color: 'white' }} >Kosova</Text>
-                   </Box>
-                <Grid templateColumns="1fr 1fr" gap="4" mt="4">
-                        <Grid templateColumns="1fr 1fr" gap="4">
-                              <BoxWithImage
-                                image={events}
-                                date="May 30, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Prishtina Event"
-                                description="Prishtina event......"
-                              />
-                              <BoxWithImage
-                                image={events}
-                                date="June 1, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Peja Event"
-                                description="Prishtina event......"
-                              />
-                        </Grid>
-                        <Grid templateColumns="1fr 1fr" gap="4">
-                              <BoxWithImage
-                                image={events}
-                                date="June 5, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Prizreni Event"
-                                description="Prishtina event......"
-                              />
-                              <BoxWithImage
-                                image={events}
-                                date="June 10, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Gjakova Event"
-                                description="Prishtina event......"
-                              />
-                        </Grid>
-                </Grid>
+const Events = () => {
 
-                <br/>
-               <Box width="100%" textAlign="center" my="4" bg="#0E4975">
-                   <Text fontSize="7xl" fontWeight="bold" style={{ color: 'white' }} >Italy</Text>
-               </Box>
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-                <Grid templateColumns="1fr 1fr" gap="4" mt="4">
-                        <Grid templateColumns="1fr 1fr" gap="4">
-                              <BoxWithImage
-                                image={events}
-                                date="May 30, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Prishtina Event"
-                                description="Prishtina event......"
-                              />
-                              <BoxWithImage
-                                image={events}
-                                date="June 1, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Peja Event"
-                                description="Prishtina event......"
-                              />
-                        </Grid>
-                        <Grid templateColumns="1fr 1fr" gap="4">
-                              <BoxWithImage
-                                image={events}
-                                date="June 5, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Prizreni Event"
-                                description="Prishtina event......"
-                              />
-                              <BoxWithImage
-                                image={events}
-                                date="June 10, 2024"
-                                time="9:00 AM to 24:00 PM"
-                                title="Gjakova Event"
-                                description="Prishtina event......"
-                              />
-                        </Grid>
-                </Grid>
-           </Grid>
-        <Footer />
-    </div>
-  );
+    useEffect(() => {
+            fetchEvents()
+        }, []
+    );
+
+    const fetchEvents = () => {
+        setLoading(true);
+        getEvents().then(res => {
+            setEvents(res.data);
+        }).catch(err => {
+            console.log(err);
+        }).finally(setLoading(false));
+    }
+
+    if (loading) {
+        return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+    }
+
+    return (
+        <Box minH={'100vh'} display="flex" flexDirection="column">
+            <Navbar />
+            <Center my={5} flex={1}><Heading>Attend our most attractive Events</Heading></Center>
+            <SimpleGrid columns={4} mx={10}>
+                {events.map(event => (
+                    <EventCard key={event.id} event={event} />
+                ))}
+            </SimpleGrid>
+            <Footer />
+        </Box>
+    );
 }
 
 export default Events;

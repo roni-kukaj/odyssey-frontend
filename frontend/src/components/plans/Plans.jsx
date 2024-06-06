@@ -1,77 +1,84 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
     Box,
     Heading,
-    Stack,
-    Button,
     Center,
     SimpleGrid,
     Spinner,
-    useDisclosure,
-    ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Modal, HStack
+    Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalBody,
+    useDisclosure, Stack, HStack
 } from '@chakra-ui/react';
 import Navbar from '../shared/Navbar.jsx';
 import Footer from '../shared/Footer.jsx';
-import {getLocations, getReviews, registerReview} from "../../services/client.js";
-import ReviewCard from "./ReviewCard.jsx";
+import {getLocations, getPlans, registerPlan} from "../../services/client.js";
 import {FaPlus} from "react-icons/fa";
-import {Form, Formik} from "formik";
-import {reviewRegistrationFormValidation} from "../../services/validation.js";
-import {SelectInput, TextAreaInput, TextInput} from "../shared/FormComponents.jsx";
-import {useAuth} from "../context/AuthContext.jsx";
+import PlanCard from "./PlanCard.jsx";
+import {planRegistrationFormValidation} from "../../services/validation.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
+import {Form, Formik} from "formik";
+import {SelectInput, TextInput} from "../shared/FormComponents.jsx";
+import {useAuth} from "../context/AuthContext.jsx";
 
-const Reviews = () => {
+const Plans = () => {
 
-    const [reviews, setReviews] = useState([]);
+    const [plans, setPlans] = useState([]);
     const [locations, setLocations] = useState([]);
     const [loading, setLoading] = useState(false);
+    const {isOpen, onOpen, onClose} = useDisclosure()
     const {user, isUserAuthenticated} = useAuth();
-    const {isOpen, onOpen, onClose} = useDisclosure();
 
     useEffect(() => {
-        fetchReviews();
-    }, [user]);
+        fetchPlans();
+        fetchLocations();
+    }, [])
 
-    const fetchReviews = () => {
+    const fetchPlans = () => {
         setLoading(true);
-        getReviews().then(res => {
-            setReviews(res.data);
-        }).then(() => fetchLocations())
-            .catch(err => {
+        getPlans().then(res => {
+            setPlans(res.data);
+        })
+        .then(() => fetchLocations())
+        .catch(err => {
             console.log(err);
-        }).finally(setLoading(false));
+        })
+        .finally(setLoading(false));
     }
-
     const fetchLocations = () => {
         setLoading(true);
         getLocations().then(res => {
             const allLocations = res.data;
-            const userReviews = reviews.filter(review => review.userDto.id === user.id);
-            const reviewedLocationIds = new Set(userReviews.map(review => review.location.id));
-            const unReviewedLocations = allLocations.filter(location => !reviewedLocationIds.has(location.id));
-            setLocations(unReviewedLocations);
-        }).catch(err => {
+            const userPlans = plans.filter(plan => plan.userDto.id === user.id);
+            const plannedLocationIds = new Set(userPlans.map(plan => plan.location.id));
+            const unplannedLocations = allLocations.filter(location => !plannedLocationIds.has(location.id));
+            setLocations(unplannedLocations);
+        })
+        .catch(err => {
             console.log(err);
-        }).finally(setLoading(false));
+        })
+        .finally(setLoading(false));
     }
 
-    const ReviewRegistrationForm = () => (
+    const PlanRegistrationForm = () => (
         <Formik
             validateOnMount={true}
-            validationSchema={reviewRegistrationFormValidation}
-            initialValues={{description: null, rating: null, locationId: null}}
+            validationSchema={ planRegistrationFormValidation }
+            initialValues={{date: null, locationId: null}}
             onSubmit={(values, {setSubmitting}) => {
                 setSubmitting(true);
                 const data = {
-                    description: values.description,
-                    rating: values.rating,
                     userId: user.id,
-                    locationId: values.locationId
+                    locationId: values.locationId,
+                    date: values.date
                 }
-                registerReview(data).then(res => {
-                    successNotification("Success", "Review was successfully added!");
-                    fetchReviews();
+                registerPlan(data).then(res => {
+                    successNotification("Success", "Plan was successfully added!");
+                    fetchPlans();
                     onClose();
                 }).catch(err => {
                     errorNotification(
@@ -86,8 +93,7 @@ const Reviews = () => {
             {({isValid, isSubmitting}) => (
                 <Form>
                     <Stack spacing={5}>
-                        <TextAreaInput label={"Description"} name={"description"} type={"textarea"} placeholder={"Describe here..."} />
-                        <TextInput label={"Rating"} name={"rating"} type={"number"} placeholder={"0.0"} />
+                        <TextInput label={"Planned Date"} name={'date'} type={"date"} />
                         <SelectInput label={"Location"} name={"locationId"}>
                             <option value="">Select Location</option>
                             { locations.map(location => (
@@ -111,9 +117,11 @@ const Reviews = () => {
                                     transform: 'translateY(-2px)',
                                     bgGradient: 'linear(to-bl, #0E4975, #010101)'
                                 }}
-                                type={'submit'}
                                 disabled={!isValid || isSubmitting}
-                            >Upload</Button>
+                                type={'submit'}
+                            >
+                                Upload
+                            </Button>
                         </HStack>
                     </Stack>
                 </Form>
@@ -121,14 +129,14 @@ const Reviews = () => {
         </Formik>
     )
 
-    const ReviewRegistrationModal = () => (
+    const PlanRegistrationModal = () => (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Upload a Review</ModalHeader>
+                <ModalHeader>Plan a Visit</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <ReviewRegistrationForm />
+                    <PlanRegistrationForm />
                 </ModalBody>
 
             </ModalContent>
@@ -140,37 +148,40 @@ const Reviews = () => {
     }
 
     return (
-        <Box minH={'100vh'} display="flex" flexDirection="column">
+        <Box minH={'100vh'} w={'100%'} display="flex" flexDirection="column">
             <Navbar />
-            <Center my={5} flex={1}><Heading>What our users have to say?</Heading></Center>
+            <Center my={5} flex={1}><Heading>What is everybody planning?</Heading></Center>
             <Center>
                 <Button
                     bgGradient='linear(to-bl, #010101, #0E4975)'
                     color={'white'}
-                    my={1}
                     leftIcon={<FaPlus />}
+                    my={2}
                     _hover={{
                         transform: 'translateY(-2px)',
                         bgGradient: 'linear(to-bl, #0E4975, #010101)'
                     }}
-                    onClick={onOpen}
+                    onClick={() => {
+                        fetchLocations();
+                        onOpen();
+                    }}
                 >
-                    New Review
+                    Add Planned Location
                 </Button>
             </Center>
-            <SimpleGrid columns={{sm:1, md:2, lg:3, xl:4}} alignContent={'center'} mx={10}>
-                {reviews.map(review => (
-                    <ReviewCard
-                        key={review.id}
-                        review={review}
-                        fetchReviews={fetchReviews}
+            <SimpleGrid columns={{sm:1, md:2, lg:3, xl:3}} alignContent={'center'} mx={10}>
+                { plans.map(plan => (
+                    <PlanCard
+                        key={plan.id}
+                        plan={plan}
+                        fetchPlans={fetchPlans}
                     />
-                ))}
+                )) }
             </SimpleGrid>
+            <PlanRegistrationModal />
             <Footer />
-            <ReviewRegistrationModal />
         </Box>
     );
 };
 
-export default Reviews;
+export default Plans;

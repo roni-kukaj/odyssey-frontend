@@ -1,2 +1,0 @@
-# odyssey-frontend
-hello

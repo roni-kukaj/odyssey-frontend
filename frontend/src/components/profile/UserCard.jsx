@@ -11,8 +11,8 @@ import {
     Text, useDisclosure
 } from "@chakra-ui/react";
 import {Form, Formik} from "formik";
-import {userUpdateFormValidation} from "../../services/validation.js";
-import {updateUser} from "../../services/client.js";
+import {passwordChangeFormValidation, userUpdateFormValidation} from "../../services/validation.js";
+import {updateUser, verify} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import {FileInput, TextInput} from "../shared/FormComponents.jsx";
 
@@ -35,7 +35,6 @@ const UserCard = ({ user, setUser }) => {
                         password: null,
                         file: values.file
                     };
-                    console.log(request);
                     updateUser(user.id, request).then(res => {
                         successNotification("Success", "Successfully updated user information!");
                         setUser({
@@ -87,10 +86,67 @@ const UserCard = ({ user, setUser }) => {
 
     const PasswordChangeForm = () => {
         return (
-            <>
-                Hello there
-            </>
-        );
+            <Formik
+                validateOnMount={true}
+                validationSchema={ passwordChangeFormValidation }
+                initialValues={{old_password: null, new_password: null, confirm_password: null}}
+                onSubmit={(values, { setSubmitting }) => {
+                    setSubmitting(true);
+                    verify({username: user.username, password: values.old_password}).then(res => {
+                        const tempUser = res.data;
+                        if (tempUser.id === user.id && tempUser.username === user.username) {
+                            const data = {
+                                fullname: null,
+                                username: null,
+                                password: values.new_password,
+                                file: null
+                            }
+                            updateUser(user.id, data).then(res => {
+                                successNotification("Success", "Successfully updated user password!");
+                                onClosePassword();
+                            }).catch(err => {
+                                errorNotification(
+                                    err.code,
+                                    err.message
+                                );
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        errorNotification(
+                            error.code,
+                            error.message
+                        );
+                    })
+                    .finally(() => setSubmitting(false));
+                }}
+            >
+                {({isValid, isSubmitting}) => (
+                    <Form>
+                        <Stack spacing={2}>
+                            <TextInput label={'Old Password'} name={'old_password'} type={'password'} placeholder={'Old password...'} />
+                            <TextInput label={'New Password'} name={'new_password'} type={'password'} placeholder={'New password...'} />
+                            <TextInput label={'Confirm Password'} name={'confirm_password'} type={'password'} placeholder={'Confirm password...'} />
+                            <Button
+                                fontFamily={'heading'}
+                                mt={8}
+                                w={'full'}
+                                type={'submit'}
+                                bgGradient="linear(to-br, #555555, #0E4975)"
+                                color={'white'}
+                                _hover={{
+                                    bgGradient: 'linear(to-r, #000000, #0E4975)',
+                                    boxShadow: 'xl',
+                                }}
+                                disabled={!isValid || isSubmitting}
+                            >
+                                Update
+                            </Button>
+                        </Stack>
+                    </Form>
+                )}
+            </Formik>
+        )
     }
 
     return (
@@ -106,7 +162,7 @@ const UserCard = ({ user, setUser }) => {
                 <Text fontSize={'lg'}><strong>Fullname:</strong> {user?.fullname}</Text>
                 <Text fontSize={'lg'}><strong>Username:</strong> <i>@{user?.username}</i></Text>
                 <Text fontSize={'lg'}><strong>Email:</strong> {user?.email}</Text>
-                <Text fontSize={'lg'}><strong>Role:</strong> {user?.role.name}</Text>
+                <Text fontSize={'lg'}><strong>Role:</strong> {user?.role}</Text>
             </Box>
             <Divider mt={5} />
             <Box w={'100%'} align={'center'}>

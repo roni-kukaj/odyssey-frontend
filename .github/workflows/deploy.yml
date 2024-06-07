@@ -1,0 +1,35 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy project files to Azure VM
+        run: scp -r -o StrictHostKeyChecking=no . krenuser@185.182.158.141:~/
+
+      - name: Install dependencies and build
+        run: |
+          ssh -o StrictHostKeyChecking=no krenuser@185.182.158.141 << 'EOF'
+          cd ~/
+          npm install
+          echo "VITE_API_BASE_URL=http://api.odyssey.kren-ks.com" > .env.production
+          npm run build
+          EOF
+      

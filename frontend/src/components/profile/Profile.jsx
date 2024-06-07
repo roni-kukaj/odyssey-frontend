@@ -30,7 +30,6 @@ function Profile() {
         fetchData();
     }, [user]);
 
-
     const fetchData = async () => {
         setLoading(true);
         try {

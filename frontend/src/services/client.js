@@ -277,6 +277,7 @@ export const registerUser = async (user) => {
 export const verify = async (usernameAndPassword) => {
     return await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/verify`,
-        usernameAndPassword
+        usernameAndPassword,
+        getAuthConfig()
     )
 }

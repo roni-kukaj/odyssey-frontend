@@ -127,3 +127,14 @@ export const planRegistrationFormValidation = Yup.object({
         .number()
         .required("Location is required!")
 })
+
+export const passwordChangeFormValidation = Yup.object({
+    old_password: Yup.string().required('Old password is required'),
+    new_password:   Yup.string()
+        .min(8, 'Password cannot be shorter than 8 characters!')
+        .max(25, 'Password cannot be longer than 25 characters!')
+        .required('Password is required'),
+    confirm_password: Yup.string()
+        .oneOf([Yup.ref('new_password'), null], 'Passwords do not match!')
+        .required('Password confirmation is required!')
+})
